@@ -26,15 +26,14 @@ settings:
     type: text
     label: Default Movie IMDB ID
     default: tt0137523
-  - name: default_tv_imdbid
+  - name: default_options
     type: text
-    label: Default TV IMDB ID
-    default: tt1632701
+    label: Torrentio Options
+    default: sort=qualitysize%7Cqualityfilter=480p,scr,cam
 
 search:
   paths:
-    - path: |
-        https://torrentio.strem.fun/sort=qualitysize%7Cqualityfilter=480p,scr,cam/stream/{{ if eq .Query.Type "movie" }}movie/{{ .Query.IMDBID }}.json{{ else if eq .Query.Type "tvsearch" }}series/{{ .Query.IMDBID }}:{{ .Query.Season }}:{{ .Query.Ep }}.json{{ else }}search/{{ .Config.default_movie_imdbid }}.json{{ end }}
+    - path: "{{ .Config.default_options }}/stream/{{ if eq .Query.Type \"movie\" }}movie/{{ .Query.IMDBID }}.json{{ else }}{{ if eq .Query.Type \"tvsearch\" }}series/{{ .Query.IMDBID }}:0{{ .Query.Season }}:0{{ .Query.Ep }}.json{{ else }}|limit=1/search/{{ .Config.default_movie_imdbid }}.json{{ end }}"
       method: get
       response:
         type: json
@@ -48,18 +47,18 @@ search:
     missingAttributeEqualsNoResults: true
 
   fields:
+    infohash:
+      selector: infoHash
     title:
       selector: title
       filters:
         - name: split
-          args: ["\n", "0"]
-    infohash:
-      selector: infoHash
+          args: ["\n", 0]
     size:
       selector: title
       filters:
         - name: regexp
-          args: "\\b(\\d+(?:\\.\\d+)? [MG]B)\\b"
+          args: "(\\d+(\\.?\\d+) GB)"
     seeders:
       selector: title
       filters:
