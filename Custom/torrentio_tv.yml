@@ -34,7 +34,7 @@ search:
   headers:
       User-Agent: ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36"]
   paths:
-    - path: "{{ .Config.default_opts }}{{ if or .Query.Season .Query.Ep }}/stream/series/tt{{ .Query.IMDBIDShort }}:0{{ .Query.Season }}:0{{ .Query.Ep }}.json{{ else }}/stream/series/tt{{ .Query.IMDBIDShort }}:1:1.json{{ end }}"
+    - path: "{{ .Config.default_opts }}{{ if and .Query.Season .Query.Ep }}/stream/series/tt{{ .Query.IMDBIDShort }}:0{{ .Query.Season }}:0{{ .Query.Ep }}.json{{ else }}providers=rarbg,1337x|sort=size|qualityfilter=brremux,hdrall,dolbyvision,4k,720p,480p,other,scr,cam,unknown|limit=1/stream/movie/tt0137523.json{{ end }}"
       method: get
       response:
         type: json
