@@ -1,6 +1,6 @@
 ---
-id: torrentio
-name: Torrentio
+id: torrentio_tv
+name: Torrentio TV
 description: "Torrentio Indexer for Real-Debrid Cached Hashes"
 language: en-US
 type: public
