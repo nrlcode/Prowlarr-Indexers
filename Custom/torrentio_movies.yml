@@ -32,9 +32,9 @@ settings:
 
 search:
   headers:
-      User-Agent: ["Stremio"]
+      User-Agent: ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0"]
   paths:
-    - path: "{{ if .Query.IMDBID }}{{ .Config.default_opts }}/stream/movie/{{ .Query.IMDBID }}.json{{ else }}sort=size|limit=1/stream/search/tt0137523.json{{ end }}"
+    - path: "{{ if .Query.IMDBID }}{{ .Config.default_opts }}/stream/movie/{{ .Query.IMDBID }}.json{{ else }}sort=size|limit=1/stream/movie/tt0137523.json{{ end }}"
       method: get
       response:
         type: json
